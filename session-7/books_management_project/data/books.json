@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "year": 1937
+  },
+  {
+    "id": 2,
+    "title": "Updated Title",
+    "author": "George Orwell",
+    "year": 1949
+  },
+  {
+    "id": 3,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "year": 1960
+  },
+  {
+    "id": 4,
+    "title": "Book 4",
+    "author": "Jane Austen",
+    "year": 1813
+  }
+]
