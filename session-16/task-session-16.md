@@ -1,0 +1,64 @@
+
+Task Title: Build the Authentication Module for Your Final Project
+==================================================================
+
+📅 Session 16 Assignment
+
+🎯 Objective:
+-------------
+You will build the authentication system for your graduation project using the concepts you learned in this session:
+- Mongoose Models
+- Password hashing
+- JWT tokens
+
+
+📌 Requirements:
+----------------
+
+1. Choose the user type(s) relevant to your project
+---------------------------------------------------
+Your app might include roles like:
+- Admin
+- Doctor
+- Patient
+- Instructor / Student / Customer / Client...
+
+Your User model should contain relevant fields such as:
+- name, email, password, role, phone, etc.
+- You can add other fields that make sense for your project (e.g., gender, photo, age, etc.)
+
+2. Implement Authentication Features
+------------------------------------
+Create the following routes:
+- POST /signup → to register a new user and return a JWT token
+- POST /login → to authenticate and return a JWT token
+
+Use:
+- bcryptjs to hash passwords
+- jsonwebtoken to create tokens
+
+
+3. Test Using Postman
+----------------------
+- Register a user and test the returned token
+- Login with correct and incorrect credentials
+- Use the token to access a protected route
+- Take screenshots of the process
+
+
+
+4. Submit Your Work
+--------------------
+- Push your code to a GitHub repo 
+- Include a README.md file with:
+  - What the module does
+  - Your chosen user roles
+  - Routes list + examples
+  - Instructions on how to run the code locally
+
+💡 Notes:
+---------
+- You can prepare to extend this module later by planning for things like:
+  - User photos (for next session with multer)
+  - Role-based access
+- Keep your code modular (routes, controllers, models...)
