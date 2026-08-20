@@ -6,27 +6,7 @@ const deleteUploadedFile = require("../utils/delete-uploaded-file");
 // Get all courses
 const getAllCourses = async (req, res) => {
   try {
-    // Copy query parameters
-    const queryObj = { ...req.query };
-
-    // Remove reserved fields
-    const excludedFields = ["sort", "page", "limit"];
-    excludedFields.forEach((field) => delete queryObj[field]);
-
-    // Convert operators like rating[gte]=4.5 & Make case insensitive
-    const mongoQuery = queriesIntoMongoDBOperators(queryObj);
-
-    // Pagination
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
-
-    // Build query  // Sorting // Pagination
-    const courses = await Course.find(mongoQuery)
-      .sort(req.query.sort)
-      .skip(skip)
-      .limit(limit);
-
+    const courses = await Course.find();
     res.status(200).json({
       status: "success",
       count: courses.length,
@@ -180,21 +160,3 @@ module.exports = {
   deleteCourse,
 };
 
-function queriesIntoMongoDBOperators(query) {
-  const mongoQuery = {};
-  for (const key in query) {
-    const value = query[key];
-    const match = key.match(/^(.+)\[(gte|gt|lte|lt|in)\]$/);
-    if (match) {
-      const field = match[1];
-      const operator = `$${match[2]}`;
-      if (!mongoQuery[field]) {
-        mongoQuery[field] = {};
-      }
-      mongoQuery[field][operator] = Number(value);
-    } else {
-      mongoQuery[key] = { $regex: value, $options: "i" };
-    }
-  }
-  return mongoQuery;
-}
