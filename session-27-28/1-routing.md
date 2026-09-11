@@ -1204,7 +1204,35 @@ export class StudentDashboard {}
 - in `student-courses.ts`
 
 ```ts
+import { Component, inject, OnInit, signal } from "@angular/core";
+import { UserService } from "../services/user-service";
+import { CourseInterface } from "../interfaces/course-interface";
 
+@Component({
+  imports: [],
+  selector: "app-student-courses",
+  styleUrl: "./student-courses.css",
+  templateUrl: "./student-courses.html",
+})
+export class StudentCourses implements OnInit {
+  userService = inject(UserService);
+
+  errorMessage = signal("");
+
+  courses = signal<CourseInterface[]>([]);
+
+  ngOnInit(): void {
+    this.userService.getUserCourses().subscribe({
+      next: (data) => {
+        this.courses.set(data);
+      },
+      error: (err) => {
+        this.errorMessage.set("Failed to load courses");
+        console.log(err);
+      },
+    });
+  }
+}
 ```
 
 - in `student-courses.html`
@@ -1560,7 +1588,6 @@ CanActivate
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 import { AuthService } from "../services/auth-service";
-
 
 export const studentGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
